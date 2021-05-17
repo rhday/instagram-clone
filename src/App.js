@@ -9,6 +9,8 @@ function App() {
     </div>
     <h1>And so it begins...</h1>
     <Post />
+    <Post />
+    <Post />
 
       {/* Posts */}
       {/* Posts */}
