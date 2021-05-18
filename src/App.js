@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import Post from './Post.js';
+import {db} from './firebase.js'
 
 function App() {
 
@@ -16,6 +17,14 @@ function App() {
       imageUrl: "https://www.freecodecamp.org/news/content/images/2020/02/Ekran-Resmi-2019-11-18-18.08.13.png"
     }
   ])
+
+  //useEffect - runs a piece of code based on a specific condition
+
+  useEffect(() => {
+    db.collection('posts').onSnapshot(snapshot => {
+      
+    })
+  }, []);
 
   return (
     <div className="app">
