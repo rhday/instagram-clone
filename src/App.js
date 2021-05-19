@@ -4,6 +4,7 @@ import Post from './Post.js';
 import {db} from './firebase.js'
 import Modal from '@material-ui/core/Modal';
 import {makeStyles} from '@material-ui/core/styles';
+import {Button} from '@material-ui/core';
 
 function getModalStyle() {
   const top = 50
@@ -46,6 +47,10 @@ function App() {
     });
   }, []);
 
+  const signUp = (event) => {
+    
+  }
+
   return (
     <div className="app">
       <Modal
@@ -59,6 +64,9 @@ function App() {
     <div className="app__header">
       <img className="app__headerImage" src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png" />
     </div>
+
+    <Button onClick={() => setOpen(true)}>Sign Up</Button>
+
     <h1>And so it begins...</h1>
 
     {
