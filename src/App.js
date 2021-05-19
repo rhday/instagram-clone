@@ -5,24 +5,25 @@ import {db} from './firebase.js'
 
 function App() {
 
-  const [posts, setPosts] = useState([
-    {
-      username: "rhday",
-      caption: "It's working!",
-      imageUrl: "https://www.freecodecamp.org/news/content/images/2020/02/Ekran-Resmi-2019-11-18-18.08.13.png"
-    },
-    {
-      username: "rhday",
-      caption: "It's working!",
-      imageUrl: "https://www.freecodecamp.org/news/content/images/2020/02/Ekran-Resmi-2019-11-18-18.08.13.png"
-    }
-  ])
+  const [posts, setPosts] = useState([]);
+  //  {
+  //    username: "rhday",
+  //    caption: "It's working!",
+  //    imageUrl: "https://www.freecodecamp.org/news/content/images/2020/02/Ekran-Resmi-2019-11-18-18.08.13.png"
+  //  },
+  //  {
+  //    username: "rhday",
+  //    caption: "It's working!",
+  //    imageUrl: "https://www.freecodecamp.org/news/content/images/2020/02/Ekran-Resmi-2019-11-18-18.08.13.png"
+  //  }
+  //])
 
-  //useEffect - runs a piece of code based on a specific condition
+  //useEffect - runs a piece of code based on a specific condition --> this is a hook
 
   useEffect(() => {
     db.collection('posts').onSnapshot(snapshot => {
-      
+      //everytime a post is added this fires
+      setPosts(snapshot.docs.map(doc => doc.data()));
     })
   }, []);
 
