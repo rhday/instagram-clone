@@ -41,7 +41,7 @@ function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    auth.onAuthStateChanged((authUser) => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser){
         console.log(authUser);
         setUser(authUser);
@@ -49,7 +49,11 @@ function App() {
         setUser(null)
       }
     })
-  }, []);
+
+    return() => {
+      unsubscribe();
+    }
+  }, [user, username]);
   
   //useEffect - runs a piece of code based on a specific condition --> this is a hook
 
@@ -66,6 +70,11 @@ function App() {
     event.preventDefault();
 
     auth.createUserWithEmailAndPassword(email, password)
+    .then((authUser) => {
+      return authUser.user.updateProfile({
+        displayName: username
+      })
+    })
     .catch((error) => alert(error.message));
   }
 
@@ -93,7 +102,11 @@ function App() {
       <img className="app__headerImage" src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png" />
     </div>
 
-    <Button onClick={() => setOpen(true)}>Sign Up</Button>
+    {user ? (
+      <Button onClick={() => auth.signOut()}>Logout</Button>
+    ): (
+      <Button onClick={() => setOpen(true)}>Sign Up</Button>
+    )}
 
     <h1>And so it begins...</h1>
 
