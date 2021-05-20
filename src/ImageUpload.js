@@ -3,6 +3,17 @@ import {Button, Input} from '@material-ui/core';
 
 function ImageUpload() {
     const [caption, setCaption] = useState('');
+    const [image, setImage] = useState('null');
+    const [progress, setProgress] = useState('0');
+
+    const handleChange = (e) => {
+
+    }
+
+    const handleUpload = (e) => {
+        
+    }
+    
     return (
         <div>
             {/* Caption input */}
