@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
 import {Button, Input} from '@material-ui/core';
 import {storage, db} from './firebase';
+import firebase from 'firebase';
 
-function ImageUpload() {
+function ImageUpload({username}) {
     const [caption, setCaption] = useState('');
     const [image, setImage] = useState('null');
     const [progress, setProgress] = useState('0');
@@ -19,7 +20,7 @@ function ImageUpload() {
         {/* Access firebase and get a reference to this folder we are creating in the database */}
         {/* in this case it will be the image name or image.name */}
         {/* then "put" the image selected into the upload point.  */}
-        const uploadTask = storage.ref('images/${image.name}').put(image);
+        const uploadTask = storage.ref(`images/${image.name}`).put(image);
 
         uploadTask.on(
             "state_changed",
@@ -43,18 +44,20 @@ function ImageUpload() {
                     db.collection("posts").add({
                         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                         caption: caption,
-                        imageUrl: url
-                    })
-                })
+                        imageUrl: url,
+                        username: username
+                    });
+                    setProgress(0);
+                    setCaption("");
+                    setImage(null);
+                });
             }
         )
     }
     
     return (
-        <div>
-            {/* Caption input */}
-            {/* File Picker */}
-            {/* Post Button */}
+        <div className="imageUpload">
+            <progress value={progress} max="100" />
             <Input type="text" placeholder="Enter your caption:" onChange={event => setCaption(event.target.value)} value={caption}/>
             <Input type="file" onChange={handleChange}/>
             <Button onClick={handleUpload}>Upload</Button>

@@ -59,7 +59,7 @@ function App() {
   //useEffect - runs a piece of code based on a specific condition --> this is a hook
 
   useEffect(() => {
-    db.collection('posts').onSnapshot(snapshot => {
+    db.collection('posts').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
       //everytime a post is added this fires
       setPosts(snapshot.docs.map(doc => ({
         id: doc.id, post: doc.data()
@@ -91,7 +91,12 @@ function App() {
   return (
     <div className="app">
 
-      <ImageUpload />
+    {/* Using the JS optional("?" after user) to stop the app breaking if there is no user */}
+    {user?.displayName ? (
+      <ImageUpload username={user.displayName} />
+    ): (
+      <h3>Sorry, you need to Login to upload.</h3>
+    )}
 
       <Modal
         open={open}
