@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {Button, Input} from '@material-ui/core';
+import {storage, db} from './firebase';
 
 function ImageUpload() {
     const [caption, setCaption] = useState('');
@@ -15,7 +16,21 @@ function ImageUpload() {
     }
 
     const handleUpload = (e) => {
-        
+        {/* Access firebase and get a reference to this folder we are creating in the database */}
+        {/* in this case it will be the image name or image.name */}
+        {/* then "put" the image selected into the upload point.  */}
+        const uploadTask = storage.ref('images/${image.name}').put(image);
+
+        uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+                //progress bar logic. As the upload progresses keep giving the user a snapshot of that progress.
+                const progress = Math.round(
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                );
+                setProgress(progress);
+            }
+        )
     }
     
     return (
