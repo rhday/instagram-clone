@@ -40,7 +40,7 @@ function Post({ postId, username, caption, imageUrl}) {
 
             <h4 className="post__text"><strong>{username}</strong> {caption}</h4>
 
-            <form>
+            <form className="post__commentbox">
                 <input 
                     className="post__input"
                     type="text"
@@ -49,8 +49,8 @@ function Post({ postId, username, caption, imageUrl}) {
                     onChange={(e) => setComments(e.target.value)}
                 />
                 <button
-                    disabled={!comment}
                     className="post__button"
+                    disabled={!comment}
                     type="submit"
                     onClick={postComment}
                     >
