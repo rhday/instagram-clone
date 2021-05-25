@@ -138,13 +138,13 @@ function App() {
     )}
     </div>
 
-    <h1>And so it begins...</h1>
-
-    {
+      <div className="app__posts">
+      {
       posts.map(({id, post}) => (
-        <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl}/>
+        <Post key={id} postId={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl}/>
       ))
     }
+      </div>
 
     {/* Using the JS optional("?" after user) to stop the app breaking if there is no user */}
     {user?.displayName ? (
