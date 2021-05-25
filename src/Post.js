@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import './Post.css';
 import Avatar from "@material-ui/core/Avatar";
-import {db, auth} from './firebase.js'
+import {db} from './firebase.js'
 
 function Post({ postId, username, caption, imageUrl}) {
 
     const [comments, setComments] = useState([]);
+    const [comment, setComment] = useState('');
 
     useEffect(() => {
         let unsubscribe;
@@ -23,6 +24,10 @@ function Post({ postId, username, caption, imageUrl}) {
         };
     }, [postId]);
 
+    const postComment = (event) => {
+
+    }
+
     return(
 
         <div className="post">
@@ -30,14 +35,28 @@ function Post({ postId, username, caption, imageUrl}) {
                 <Avatar className="post__avatar" alt="Ruari" src="/static/images/avatar/1.jpg" />
                 <h3>{username}</h3>
             </div>
-            
-            {/* Header --> avatar + username */}
 
             <img className="post__image" src={imageUrl} />
-            {/* Image */}
 
             <h4 className="post__text"><strong>{username}</strong> {caption}</h4>
-            {/* Username + Caption */}
+
+            <form>
+                <input 
+                    className="post__input"
+                    type="text"
+                    placeholder="Add a comment..."
+                    value={comment}
+                    onChange={(e) => setComments(e.target.value)}
+                />
+                <button
+                    disabled={!comment}
+                    className="post__button"
+                    type="submit"
+                    onClick={postComment}
+                    >
+                    Post
+                </button>
+            </form>
 
 
         </div>
